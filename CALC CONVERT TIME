@@ -1,0 +1,6 @@
+// Convert Time
+
+int convertTime(int hour, int minute)
+{
+    return hour * 60 + minute;
+}
