@@ -1,1 +1,10 @@
+// Calculate Overtime
 
+double calculateOvertime(double workingHours, double standardHours)
+{
+    if (workingHours > standardHours)
+        return workingHours - standardHours;
+    else
+    
+        return 0;
+}
