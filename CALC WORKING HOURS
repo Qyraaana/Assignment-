@@ -1,0 +1,15 @@
+// Function to calculate working hours
+
+void calculateWorkingHours(double clockIn, double clockOut, double breakTime)
+{
+    int inHour = (int)clockIn;
+    int inMinute = (clockIn - inHour) * 100;
+
+    int outHour = (int)clockOut;
+    int outMinute = (clockOut - outHour) * 100;
+
+    int totalIn = inHour * 60 + inMinute;
+    int totalOut = outHour * 60 + outMinute;
+	
+	workingHours = totalOut - totalIn - (int)(breakTime * 60);
+}
