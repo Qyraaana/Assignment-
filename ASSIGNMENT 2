@@ -1,1 +1,198 @@
-//start our coding for assignment 2 here
+#include <iostream>
+using namespace std;
+
+
+// Convert Time
+
+int convertTime(int hour, int minute)
+{
+    return hour * 60 + minute;
+}
+
+
+// Check Valid Time
+
+bool validTime(int hour, int minute)
+{
+    if (hour < 0 || hour > 24)
+        return false;
+
+    if (minute < 0 || minute > 59)
+        return false;
+
+    return true;
+}
+
+
+// Calculate Working Hours
+
+double calculateWorkingHours(int clockIn, int clockOut, double breakDuration)
+{
+    double totalHours;
+
+    totalHours = (clockOut - clockIn) / 60.0 - breakDuration;
+
+    return totalHours;
+}
+
+
+// Check Attendance
+
+void checkAttendance(int scheduledStart, int clockIn)
+{
+    if (clockIn > scheduledStart)
+        cout << "Attendance Status: Late" << endl;
+    else
+        cout << "Attendance Status: On Time" << endl;
+}
+
+
+// Calculate Overtime
+
+double calculateOvertime(double workingHours, double standardHours)
+{
+    if (workingHours > standardHours)
+        return workingHours - standardHours;
+    else
+    
+        return 0;
+}
+
+
+// Display Hours and Minutes
+
+void displayHoursMinutes(double hours)
+{
+    int totalMinutes = hours * 60;
+    int hour = totalMinutes / 60;
+    int minute = totalMinutes % 60;
+
+    cout << hour << " hours " << minute << " minutes";
+}
+
+
+// MAIN PROGRAM
+
+int main(){
+	
+    int startHour, startMinute, endHour, endMinute, clockInHour, clockInMinute,clockOutHour, clockOutMinute;
+
+    int scheduledStart, scheduledEnd, clockIn, clockOut;
+
+    double breakDuration, standardHours, workingHours, overtime;
+
+
+    cout << "===== EMPLOYEE ATTENDANCE SYSTEM =====" << endl;
+
+
+    cout << "\nEnter Scheduled Start Time (Hour minute): ";
+    cin >> startHour >> startMinute;
+
+
+    if (!validTime(startHour, startMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+    cout << "Enter Scheduled End Time (Hour minute): ";
+    cin >> endHour >> endMinute;
+
+    if (!validTime(endHour, endMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter Clock-in time (Hour minute): ";
+    cin >> clockInHour >> clockInMinute;
+
+    if (!validTime(clockInHour, clockInMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter Clock-out Time (Hour minute): ";
+    cin >> clockOutHour >> clockOutMinute;
+
+    if (!validTime(clockOutHour, clockOutMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    // CONVERT TIME
+
+    clockIn = convertTime(clockInHour, clockInMinute);
+    clockOut = convertTime(clockOutHour, clockOutMinute);
+    scheduledStart = convertTime(startHour, startMinute);
+    scheduledEnd = convertTime(endHour, endMinute);
+
+
+    // CHECK ERROR
+
+    if (clockOut < clockIn)
+    {
+        cout << "ERROR! Clock-out time can't be earlier than clock-in time" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter standard working hours: ";
+    cin >> standardHours;
+
+    if (standardHours < 0)
+    {
+        cout << "ERROR! Standard working hours can't be negative" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter break duration (hours): ";
+    cin >> breakDuration;
+
+    if (breakDuration < 0)
+    {
+        cout << "ERROR! Break duration can't be negative" << endl;
+        return 0;
+    }
+
+
+    if (breakDuration > ((clockOut - clockIn) / 60.0))
+    {
+        cout << "ERROR! Break duration is too long" << endl;
+        return 0;
+    }
+
+
+    // CALCULATE WORKING HOURS
+
+    workingHours = calculateWorkingHours(clockIn,clockOut,breakDuration);
+
+
+    // CALCULATE OVERTIME
+
+    overtime = calculateOvertime(workingHours,standardHours);
+
+
+    // OUTPUT
+
+    cout << "\n===== ATTENDANCE RESULT =====" << endl;
+
+    cout << "\nWorking Hours: ";
+    displayHoursMinutes(workingHours);
+    cout << endl;
+
+    cout << "Overtime Hours: ";
+    displayHoursMinutes(overtime);
+    cout << endl;
+
+    checkAttendance(scheduledStart, clockIn);
+
+
+    return 0;
+}//start our coding for assignment 2 here
