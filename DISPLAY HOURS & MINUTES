@@ -1,0 +1,10 @@
+// Display Hours and Minutes
+
+void displayHoursMinutes(double hours)
+{
+    int totalMinutes = hours * 60;
+    int hour = totalMinutes / 60;
+    int minute = totalMinutes % 60;
+
+    cout << hour << " hours " << minute << " minutes";
+}
