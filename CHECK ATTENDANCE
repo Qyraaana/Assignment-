@@ -1,0 +1,9 @@
+// Check Attendance
+
+void checkAttendance(int scheduledStart, int clockIn)
+{
+    if (clockIn > scheduledStart)
+        cout << "Attendance Status: Late" << endl;
+    else
+        cout << "Attendance Status: On Time" << endl;
+}
