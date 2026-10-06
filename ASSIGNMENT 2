@@ -1,1 +1,48 @@
 //start our coding for assignment 2 here
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+double workingHours;
+double overtimeMinutes;
+string status;
+
+// Function to calculate working hours
+void calculateWorkingHours(double clockIn, double clockOut, double breakTime)
+{
+    int inHour = (int)clockIn;
+    int inMinute = (clockIn - inHour) * 100;
+
+    int outHour = (int)clockOut;
+    int outMinute = (clockOut - outHour) * 100;
+
+    int totalIn = inHour * 60 + inMinute;
+    int totalOut = outHour * 60 + outMinute;
+	
+	workingHours = totalOut - totalIn - (int)(breakTime * 60);
+}
+
+
+    // Calculate
+    calculateWorkingHours(clockIn, clockOut, breakTime);
+    calculateOvertime(standardHours);
+    checkAttendance(scheduledStart, clockIn);
+    
+    
+    // Output
+    cout << "\n===== ATTENDANCE RESULT =====" << endl;
+
+    cout << fixed << setprecision(2);
+
+    cout << "\nWorking Hours: "
+         << (int)workingHours / 60 << " hours " 
+		 << (int)workingHours % 60 << " minute"<< endl;
+
+    cout << "Attendance Status: "
+         << status << endl;
+
+    cout << "Overtime: "
+         << (int)overtimeMinutes / 60 << " hours "
+         << (int)overtimeMinutes % 60 << " minutes" << endl;
+    return 0;
+}
