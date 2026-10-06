@@ -1,0 +1,12 @@
+// Check Valid Time
+
+bool validTime(int hour, int minute)
+{
+    if (hour < 0 || hour > 24)
+        return false;
+
+    if (minute < 0 || minute > 59)
+        return false;
+
+    return true;
+}
