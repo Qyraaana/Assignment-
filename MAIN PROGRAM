@@ -1,0 +1,123 @@
+int main(){
+	
+    int startHour, startMinute, endHour, endMinute, clockInHour, clockInMinute,clockOutHour, clockOutMinute;
+
+    int scheduledStart, scheduledEnd, clockIn, clockOut;
+
+    double breakDuration, standardHours, workingHours, overtime;
+
+
+    cout << "===== EMPLOYEE ATTENDANCE SYSTEM =====" << endl;
+
+
+    cout << "\nEnter Scheduled Start Time (Hour minute): ";
+    cin >> startHour >> startMinute;
+
+
+    if (!validTime(startHour, startMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+    cout << "Enter Scheduled End Time (Hour minute): ";
+    cin >> endHour >> endMinute;
+
+    if (!validTime(endHour, endMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter Clock-in time (Hour minute): ";
+    cin >> clockInHour >> clockInMinute;
+
+    if (!validTime(clockInHour, clockInMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter Clock-out Time (Hour minute): ";
+    cin >> clockOutHour >> clockOutMinute;
+
+    if (!validTime(clockOutHour, clockOutMinute))
+    {
+        cout << "ERROR! Time must be between 00 00 and 24 59" << endl;
+        return 0;
+    }
+
+
+    // CONVERT TIME
+
+    clockIn = convertTime(clockInHour, clockInMinute);
+    clockOut = convertTime(clockOutHour, clockOutMinute);
+    scheduledStart = convertTime(startHour, startMinute);
+    scheduledEnd = convertTime(endHour, endMinute);
+
+
+    // CHECK ERROR
+
+    if (clockOut < clockIn)
+    {
+        cout << "ERROR! Clock-out time can't be earlier than clock-in time" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter standard working hours: ";
+    cin >> standardHours;
+
+    if (standardHours < 0)
+    {
+        cout << "ERROR! Standard working hours can't be negative" << endl;
+        return 0;
+    }
+
+
+    cout << "Enter break duration (hours): ";
+    cin >> breakDuration;
+
+    if (breakDuration < 0)
+    {
+        cout << "ERROR! Break duration can't be negative" << endl;
+        return 0;
+    }
+
+
+    if (breakDuration > ((clockOut - clockIn) / 60.0))
+    {
+        cout << "ERROR! Break duration is too long" << endl;
+        return 0;
+    }
+
+
+    // CALCULATE WORKING HOURS
+
+    workingHours = calculateWorkingHours(clockIn,clockOut,breakDuration);
+
+
+    // CALCULATE OVERTIME
+
+    overtime = calculateOvertime(workingHours,standardHours);
+
+
+    // OUTPUT
+
+    cout << "\n===== ATTENDANCE RESULT =====" << endl;
+
+    cout << "\nWorking Hours: ";
+    displayHoursMinutes(workingHours);
+    cout << endl;
+
+    cout << "Overtime Hours: ";
+    displayHoursMinutes(overtime);
+    cout << endl;
+
+    checkAttendance(scheduledStart, clockIn);
+
+
+    return 0;
+}
